@@ -30,6 +30,10 @@ if (process.argv.includes('--validate') && process.argv.includes('--stats')) {
     validate(path).then(res => console.log(' Href: ',  res.map((link) => link.file+ ' ' + link.href + ' ' + link.ok + ' ' + link.status + ' '+ link.text)));
     
 } else {
-    md.mdLinks(path, { validate: true }).then(res => console.log(res));
+    md.mdLinks(path, { validate: true }).then(res => console.log(res))
+        .catch(()=>{
+        // eslint-disable-next-line indent
+         console.log('por favor escribe una ruta');
+        });
 }
 // }

@@ -2,22 +2,22 @@
 const { readRoute, fileOrDirectory, readDirectory, readFiles, extMd, getMdFiles, getLinks } = require('../src/isFile.js/');
 
 // eslint-disable-next-line no-undef
-describe('readRoute',()=>{
+describe('readRoute', () => {
     // eslint-disable-next-line no-undef
-    it('es una función',()=>{
+    it('es una función', () => {
         // eslint-disable-next-line no-undef
         expect(typeof readRoute).toBe('function');
     });
     // eslint-disable-next-line no-undef
-    it('convierte una ruta relativa a absoluta',()=>{
+    it('convierte una ruta relativa a absoluta', () => {
         let pathR = './carpetaParaPruebas/archivomd.md';
         let result = 'C:\\Users\\GILLIAM\\Desktop\\proyectos\\BOG004-md-links\\carpetaParaPruebas\\archivomd.md';
         expect(readRoute(pathR)).toBe(result);
     });
 });
 
-describe('fileOrDirectory',()=>{
-    it('es una funcion',()=>{
+describe('fileOrDirectory', () => {
+    it('es una funcion', () => {
         expect(typeof fileOrDirectory).toBe('function');
     });
     /* it('es un directorio',()=>{
@@ -29,12 +29,12 @@ describe('readDirectory', () => {
         expect(typeof readDirectory).toBe('function');
     });
     it('deberia retornar un array con el contenido del directorio', () => {
-        expect(getMdFiles('./carpetaParaPruebas/').length).toBe(3);
-    }); 
+        expect(getMdFiles('./carpetaParaPruebas/').length).toBe(4);
+    });
 });
 
 describe('readFiles', () => {
-    it('es una función', () =>{
+    it('es una función', () => {
         expect(typeof readFiles).toBe('function');
     });
 
@@ -64,11 +64,17 @@ describe('getMdFiles', () => {
     });
     it('deberia retornar un array de archivos .md', () => {
         expect(getMdFiles('./README.md').length).toBe(1);
-    }); 
+    });
 });
 
 describe('getLinks', () => {
     it('es una función', () => {
         expect(typeof getLinks).toBe('function');
+    });
+    it('debe retornar array de objetos con los links encontrados', () => {
+        return getLinks('./carpetaParaPruebas/archivomd.md').then(data => {
+            expect(data.length).toBe(2);
+
+        });
     });
 });

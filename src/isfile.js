@@ -5,9 +5,9 @@ const path = require('path');
 /* Esta funcion esta analizando la ruta y conviertiendola en absoluta */
 const readRoute = (routes) => {
     if (path.isAbsolute(routes)) {
-    // console.log('la ruta es absoluta: ', routes);
+        // console.log('la ruta es absoluta: ', routes);
         return routes;
-    }else {
+    } else {
         // console.log('ruta convertida en absoluta: ', path.resolve(routes));
         return path.resolve(routes);
     }
@@ -95,16 +95,21 @@ const getLinks = (route) => new Promise((resolve, reject) => {
         readFiles(mdPath)
             .then((data) => {
                 let links = data.match(regLink);
-                // console.log('link', links);
-                links.forEach((link) => {
-                    let matchUrl = link.match(regText)[2].replace(/\(|\)/g, '');
-                    let matchText = link.match(regText)[1];
-                    arrObj.push({
-                        href: matchUrl,
-                        text: matchText.substring(0, 50),
-                        path: mdPath,
+                //console.log('link', links);
+                if (links != null) {
+                    links.forEach((link) => {
+                        let matchUrl = link.match(regText)[2].replace(/\(|\)/g, '');
+                        let matchText = link.match(regText)[1];
+                        arrObj.push({
+                            href: matchUrl,
+                            text: matchText.substring(0, 50),
+                            path: mdPath,
+                        });
                     });
-                });
+                }else if(links === null){
+                    console.log(' no se encontraron links en el archivo ' + mdPath);
+                }
+
                 //   console.log('******objeto: ', [...arrObj]);
                 return [...arrObj];
             })
