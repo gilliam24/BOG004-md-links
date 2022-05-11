@@ -1,8 +1,6 @@
 const fs = require('fs');
 const md = require('./isfile.js');
-const { validate, stats } = require('./validate.js')
-const cli = require('./cli.js')
-
+const { validate } = require('./validate.js');
 
 
 const mdLinks = (path, options) => {
@@ -14,23 +12,24 @@ const mdLinks = (path, options) => {
             reject(new Error('La ruta ingresada es invalida'));
         } else {
             if (options.validate === true) {
-                validate(absoluteRoute).then(res => console.log('validate', res));
+                validate(absoluteRoute).then(res => resolve(res));
             } else {
-                if (options.stats === true) {
-                    stats(absoluteRoute).then(res => console.log('stats', res))
-                }else{
-                    md.getLinks(absoluteRoute).then(res => console.log('links', res))
-                }
+                md.getLinks(absoluteRoute).then(res => resolve(res));
+
+                /* if (options.stats === true) {
+                     stats(absoluteRoute).then(res => console.log('stats', res))
+                 } else {
+                     md.getLinks(absoluteRoute).then(res => console.log('links', res))
+                 }*/
             }
         }
-        resolve()
+        // resolve()
     });
-    return promise
-}
+    return promise;
+};
 
 
 
 module.exports = {
     mdLinks,
-
-}
+};
